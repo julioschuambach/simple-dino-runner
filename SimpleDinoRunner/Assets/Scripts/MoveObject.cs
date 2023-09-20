@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class MoveObject : MonoBehaviour
@@ -28,11 +29,14 @@ public abstract class MoveObject : MonoBehaviour
     private void Update()
     {
         if (transform.position.x < 0.0f && !instantiated)
-            InstantiateNewPrefab(instantiatePrefab, GetInstantiatePosition(), transform.rotation);
+            InstantiateNewPrefab(GetInstantiatePrefab(), GetInstantiatePosition(), transform.rotation);
 
         if (transform.position.x < destroyPosition)
             Destroy(gameObject);
     }
+
+    protected virtual GameObject GetInstantiatePrefab()
+        => instantiatePrefab;
 
     protected virtual Vector3 GetInstantiatePosition()
         => instantiatePosition;
