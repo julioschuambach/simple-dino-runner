@@ -51,6 +51,7 @@ MonoBehaviour:
   instantiatePosition: {x: 12, y: -0.5, z: 0}
   instantiatePrefab: {fileID: 0}
   destroyPosition: -6
+  scoreValue: 1
   obstaclesPrefab:
   - {fileID: 5526635612446880268}
   - {fileID: 7749100405161397265, guid: deeaa2745a46d214d8580a05b2c6ad46, type: 3}
