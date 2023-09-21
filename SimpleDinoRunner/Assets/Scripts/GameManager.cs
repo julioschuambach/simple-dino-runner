@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     private Button retryButton;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip gameplayClip;
+    [SerializeField] private AudioClip gameOverClip;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -29,8 +34,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        ChangeAudioClip(gameplayClip);
         EnsureCanvasElements();
         gameOverPanel.SetActive(false);
+    }
+
+    private void ChangeAudioClip(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     private void EnsureCanvasElements()
@@ -80,12 +93,14 @@ public class GameManager : MonoBehaviour
         UpdateHighscore();
         SetTimeScale(0.0f);
         gameOverPanel.SetActive(true);
+        ChangeAudioClip(gameOverClip);
     }
 
     public void Retry()
     {
         SceneManager.LoadScene("Gameplay");
         SetTimeScale(1.0f);
+        ChangeAudioClip(gameplayClip);
     }
 
     private void SetTimeScale(float timeScale)
