@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidbody;
     [SerializeField] private bool isGrounded;
     [SerializeField] private Vector3 jumpForce;
-
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -17,10 +16,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (Input.anyKeyDown && isGrounded)
-        {
-            Debug.Log("Jump()");
             Jump();
-        }
     }
 
     private void LateUpdate()
@@ -38,7 +34,8 @@ public class Player : MonoBehaviour
     {
         if (collider.CompareTag("Obstacle"))
         {
-            Debug.LogError("GAME OVER!");
+            animator.SetBool("isDead", true);
+            GameManager.instance.GameOver();
         }
     }
 
