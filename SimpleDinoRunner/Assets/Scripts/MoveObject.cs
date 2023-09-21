@@ -26,7 +26,7 @@ public abstract class MoveObject : MonoBehaviour
         Instantiate(prefab, prefabPosition, prefabRotation);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (transform.position.x < 0.0f && !instantiated)
             InstantiateNewPrefab(GetInstantiatePrefab(), GetInstantiatePosition(), transform.rotation);
