@@ -5,12 +5,17 @@ public class Player : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rigidbody;
+    private AudioSource audioSource;
     [SerializeField] private bool isGrounded;
     [SerializeField] private Vector3 jumpForce;
+    [SerializeField] private AudioClip jumpClip;
+    [SerializeField] private AudioClip dieClip;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -26,6 +31,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
+        audioSource.PlayOneShot(jumpClip);
         SetGrounded(false);
         rigidbody.AddForce(jumpForce);
     }
@@ -34,6 +40,7 @@ public class Player : MonoBehaviour
     {
         if (collider.CompareTag("Obstacle"))
         {
+            audioSource.PlayOneShot(dieClip);
             animator.SetBool("isDead", true);
             GameManager.instance.GameOver();
         }
